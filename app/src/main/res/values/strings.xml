@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Starship Delivery</string>
+    <string name="generic_error">An error occurred. Please try again.</string>
 </resources>
