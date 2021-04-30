@@ -1,8 +1,7 @@
-package com.ozgursakizli.a4b14b0574e51c8fe0f3432fbc0091acb
+package com.ozgursakizli.starshipdelivery
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
