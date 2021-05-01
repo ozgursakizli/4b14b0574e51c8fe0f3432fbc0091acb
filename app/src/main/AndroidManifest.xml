@@ -16,14 +16,14 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.NewSpaceshipActivity" />
+        <activity android:name=".ui.newspaceship.NewSpaceshipActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.ozgursakizli.starshipdelivery.ui
+package com.ozgursakizli.starshipdelivery.ui.newspaceship
 
 import android.os.Bundle
 import android.widget.SeekBar

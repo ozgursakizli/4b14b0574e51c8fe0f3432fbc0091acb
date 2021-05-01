@@ -1,10 +1,11 @@
-package com.ozgursakizli.starshipdelivery.ui
+package com.ozgursakizli.starshipdelivery.ui.splash
 
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ozgursakizli.starshipdelivery.databinding.ActivitySplashBinding
+import com.ozgursakizli.starshipdelivery.ui.newspaceship.NewSpaceshipActivity
 import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {

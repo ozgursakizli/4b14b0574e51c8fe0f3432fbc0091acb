@@ -1,4 +1,4 @@
-package com.ozgursakizli.starshipdelivery.ui
+package com.ozgursakizli.starshipdelivery.ui.newspaceship
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
