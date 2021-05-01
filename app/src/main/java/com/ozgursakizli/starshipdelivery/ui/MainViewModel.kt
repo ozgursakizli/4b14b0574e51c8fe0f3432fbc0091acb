@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
-import com.ozgursakizli.starshipdelivery.network.generic.ApiResult
+import com.ozgursakizli.starshipdelivery.network.generic.ApiResponse
 import com.ozgursakizli.starshipdelivery.network.spacestations.SpaceStationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -32,12 +32,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             spaceStationsRepository.getSpaceStations().collect { result ->
                 when (result) {
-                    is ApiResult.Success -> {
+                    is ApiResponse.Success -> {
                         _spaceStations.postValue(result.data)
                     }
-                    is ApiResult.Error -> {
-                        Log.e(TAG, "getSpaceStations::error: ${result.error}")
+                    is ApiResponse.Error -> {
+                        Log.e(TAG, "getSpaceStations:: $result")
                     }
+                    is ApiResponse.Exception -> Log.e(TAG, "getSpaceStations::error: $result")
                 }
             }
         }
