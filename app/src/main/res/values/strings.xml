@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Starship Delivery</string>
+    <string name="create_new_ship">Create Your Spaceship</string>
+    <string name="give_a_name">Give a name</string>
+    <string name="durability">Durability: %1$s </string>
+    <string name="speed">Speed: %1$s</string>
+    <string name="material_capacity">Material Capacity: %1$s</string>
     <string name="spaceship_points">Total distributable points: %1$s</string>
+    <string name="continue_button">Continue</string>
 </resources>
