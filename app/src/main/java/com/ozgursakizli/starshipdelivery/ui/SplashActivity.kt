@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
                 Timber.d("onAnimationEnd")
-                Intent(this@SplashActivity, MainActivity::class.java).apply {
+                Intent(this@SplashActivity, NewSpaceshipActivity::class.java).apply {
                     startActivity(this)
                     finish()
                 }

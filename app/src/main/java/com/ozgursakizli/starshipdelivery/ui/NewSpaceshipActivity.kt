@@ -5,15 +5,15 @@ import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ozgursakizli.starshipdelivery.R
-import com.ozgursakizli.starshipdelivery.databinding.ActivityMainBinding
+import com.ozgursakizli.starshipdelivery.databinding.ActivityNewSpaceshipBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
+class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
-    private lateinit var binding: ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityNewSpaceshipBinding
+    private val newSpaceshipViewModel: NewSpaceshipViewModel by viewModels()
     private val totalPoints = 15
     private var maxPoint = 13
     private var minPoint = 1
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityNewSpaceshipBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initUi()
         observeViewModel()
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
             seekDurability.progress = minPoint
             seekSpeed.progress = minPoint
             seekCapacity.progress = minPoint
-            seekDurability.setOnSeekBarChangeListener(this@MainActivity)
-            seekSpeed.setOnSeekBarChangeListener(this@MainActivity)
-            seekCapacity.setOnSeekBarChangeListener(this@MainActivity)
+            seekDurability.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
+            seekSpeed.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
+            seekCapacity.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
             btnContinue.setOnClickListener {
                 finish()
             }
@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
     private fun observeViewModel() {
         Timber.d("observeViewModel")
-        with(mainViewModel) {
-            spaceShip.observe(this@MainActivity, {
+        with(newSpaceshipViewModel) {
+            spaceShip.observe(this@NewSpaceshipActivity, {
                 Timber.d("spaceship:: $it")
             })
         }

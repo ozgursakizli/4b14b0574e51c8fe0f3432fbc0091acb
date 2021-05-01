@@ -6,17 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipRepository
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
-import com.ozgursakizli.starshipdelivery.network.generic.ApiResponse
-import com.ozgursakizli.starshipdelivery.network.spacestations.SpaceStationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class NewSpaceshipViewModel @Inject constructor(
     private val spaceshipRepository: SpaceshipRepository
 ) : ViewModel() {
 
