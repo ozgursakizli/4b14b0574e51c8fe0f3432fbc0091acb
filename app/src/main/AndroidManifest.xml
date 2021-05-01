@@ -15,12 +15,15 @@
         android:theme="@style/Theme.AppStyle"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>
