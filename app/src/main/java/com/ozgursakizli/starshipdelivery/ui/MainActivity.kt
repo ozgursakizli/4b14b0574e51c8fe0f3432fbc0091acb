@@ -24,8 +24,12 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         Timber.d("observeViewModel")
         with(mainViewModel) {
-            spaceStations.observe(this@MainActivity, {
-                Timber.d("spaceStations:: $it")
+            spaceShip.observe(this@MainActivity, {
+                Timber.d("spaceship:: $it")
+
+                if (it == null) {
+                    binding.lottieAnim.animate().alpha(0F).duration = 2000
+                }
             })
         }
     }
