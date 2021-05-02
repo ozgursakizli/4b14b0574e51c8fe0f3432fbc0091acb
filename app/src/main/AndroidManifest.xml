@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.newspaceship.NewSpaceshipActivity" />
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>
