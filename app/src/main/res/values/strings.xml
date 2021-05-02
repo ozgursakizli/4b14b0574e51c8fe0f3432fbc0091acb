@@ -10,4 +10,6 @@
     <string name="continue_button">Continue</string>
     <string name="remaining_points_error">You should spend remaining points!</string>
     <string name="error_occurred">An error occurred. Please try again.</string>
+    <string name="stations">Stations</string>
+    <string name="favourites">Favourites</string>
 </resources>

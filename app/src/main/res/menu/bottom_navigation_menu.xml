@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/stationsFragment"
+        android:icon="@drawable/ic_stations"
+        android:title="@string/stations" />
+
+    <item
+        android:id="@+id/favouritesFragment"
+        android:icon="@drawable/ic_favourites"
+        android:title="@string/favourites" />
+</menu>
