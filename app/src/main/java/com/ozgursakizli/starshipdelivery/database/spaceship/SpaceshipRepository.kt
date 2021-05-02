@@ -17,8 +17,4 @@ class SpaceshipRepository @Inject constructor(private val spaceshipDao: Spaceshi
         return spaceshipDao.update(spaceshipEntity)
     }
 
-    override suspend fun delete(spaceshipEntity: SpaceshipEntity) {
-        spaceshipDao.delete(spaceshipEntity)
-    }
-
 }

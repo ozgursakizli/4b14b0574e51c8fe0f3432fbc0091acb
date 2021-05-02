@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ozgursakizli.starshipdelivery.R
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
+import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.databinding.FragmentStationsBinding
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -22,8 +22,8 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     private val binding get() = _binding!!
     private val stationsViewModel: StationsViewModel by viewModels()
     private var stationsAdapter: StationsAdapter? = null
-    private var items = arrayListOf<ApiSpaceStationModel>()
-    private var currentStation: ApiSpaceStationModel? = null
+    private var items = arrayListOf<StationEntity>()
+    private var currentStation: StationEntity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Timber.d("onCreateView")
@@ -99,19 +99,19 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
         }
     }
 
-    private fun updateCurrentStation(apiSpaceStationModel: ApiSpaceStationModel?) {
-        apiSpaceStationModel?.let {
-            currentStation = apiSpaceStationModel
-            binding.tvCurrentStation.text = apiSpaceStationModel.name
-            stationsAdapter?.setData(items, apiSpaceStationModel)
+    private fun updateCurrentStation(stationEntity: StationEntity?) {
+        stationEntity?.let {
+            currentStation = stationEntity
+            binding.tvCurrentStation.text = stationEntity.name
+            stationsAdapter?.setData(items, stationEntity)
         }
     }
 
-    override fun onTravelClicked(station: ApiSpaceStationModel) {
+    override fun onTravelClicked(station: StationEntity) {
         stationsViewModel.updateSpaceshipLocation(station)
     }
 
-    override fun onFavouriteClicked(station: ApiSpaceStationModel) {
+    override fun onFavouriteClicked(station: StationEntity) {
         Timber.d("onFavouriteClicked")
     }
 

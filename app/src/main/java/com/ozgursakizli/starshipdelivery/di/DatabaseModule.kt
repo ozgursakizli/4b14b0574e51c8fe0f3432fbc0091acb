@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.ozgursakizli.starshipdelivery.database.AppDatabase
 import com.ozgursakizli.starshipdelivery.database.DatabaseConstants
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipDao
+import com.ozgursakizli.starshipdelivery.database.stations.StationsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,6 +30,11 @@ object DatabaseModule {
     @Provides
     fun provideSpaceshipDao(database: AppDatabase): SpaceshipDao {
         return database.spaceshipDao()
+    }
+
+    @Provides
+    fun provideStationsDao(database: AppDatabase): StationsDao {
+        return database.stationsDao()
     }
 
 }

@@ -6,5 +6,4 @@ interface SpaceshipDataSource {
     fun getSpaceship(): Flow<SpaceshipEntity?>
     suspend fun insert(spaceshipEntity: SpaceshipEntity): Long
     suspend fun update(spaceshipEntity: SpaceshipEntity): Int
-    suspend fun delete(spaceshipEntity: SpaceshipEntity)
 }

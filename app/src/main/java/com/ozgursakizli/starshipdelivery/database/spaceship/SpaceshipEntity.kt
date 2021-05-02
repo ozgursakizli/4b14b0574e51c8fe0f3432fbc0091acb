@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ozgursakizli.starshipdelivery.database.DatabaseConstants
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
+import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 
 @Entity(tableName = DatabaseConstants.SPACESHIP_TABLE)
 data class SpaceshipEntity(
@@ -27,7 +27,7 @@ data class SpaceshipEntity(
     @ColumnInfo(name = "ds")
     val ds: Int,
     @ColumnInfo(name = "current_station")
-    var currentStation: ApiSpaceStationModel?
+    var currentStation: StationEntity?
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

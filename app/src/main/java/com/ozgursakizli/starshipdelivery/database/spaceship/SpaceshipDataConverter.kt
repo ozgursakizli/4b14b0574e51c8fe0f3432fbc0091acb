@@ -2,20 +2,20 @@ package com.ozgursakizli.starshipdelivery.database.spaceship
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
+import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 
-class DataConverter {
+class SpaceshipDataConverter {
 
     @TypeConverter
-    fun modelToJson(value: ApiSpaceStationModel?): String? {
+    fun modelToJson(value: StationEntity?): String? {
         if (value == null) return null
         return Gson().toJson(value)
     }
 
     @TypeConverter
-    fun jsonToModel(value: String?): ApiSpaceStationModel? {
+    fun jsonToModel(value: String?): StationEntity? {
         if (value == null) return null
-        return Gson().fromJson(value, ApiSpaceStationModel::class.java)
+        return Gson().fromJson(value, StationEntity::class.java)
     }
 
 }

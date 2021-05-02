@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipRepository
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
+import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.network.generic.ApiResponse
 import com.ozgursakizli.starshipdelivery.network.spacestations.SpaceStationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +23,8 @@ class StationsViewModel @Inject constructor(
 
     private var _spaceShip = MutableLiveData<SpaceshipEntity>()
     val spaceShip: LiveData<SpaceshipEntity> = _spaceShip
-    private var _spaceStations = MutableLiveData<List<ApiSpaceStationModel>>()
-    val spaceStations: LiveData<List<ApiSpaceStationModel>> = _spaceStations
+    private var _spaceStations = MutableLiveData<List<StationEntity>>()
+    val spaceStations: LiveData<List<StationEntity>> = _spaceStations
 
     fun fetchSpaceship() {
         Timber.d("fetchSpaceship")
@@ -52,7 +52,7 @@ class StationsViewModel @Inject constructor(
         }
     }
 
-    fun updateSpaceshipLocation(station: ApiSpaceStationModel?) {
+    fun updateSpaceshipLocation(station: StationEntity?) {
         Timber.d("updateSpaceshipLocation::station: $station")
         station?.let {
             viewModelScope.launch {

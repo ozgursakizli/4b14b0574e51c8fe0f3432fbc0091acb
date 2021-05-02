@@ -3,16 +3,16 @@ package com.ozgursakizli.starshipdelivery.ui.stations
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.databinding.ItemStationBinding
-import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
 
 
 class StationsAdapter constructor(
     private val onItemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<StationsAdapter.StationViewHolder>() {
 
-    private var stationList: MutableList<ApiSpaceStationModel> = arrayListOf()
-    private lateinit var currentStation: ApiSpaceStationModel
+    private var stationList: MutableList<StationEntity> = arrayListOf()
+    private lateinit var currentStation: StationEntity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationsAdapter.StationViewHolder {
         val itemBinding = ItemStationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,9 +25,9 @@ class StationsAdapter constructor(
 
     override fun getItemCount(): Int = stationList.size
 
-    private fun getItem(position: Int): ApiSpaceStationModel = stationList[position]
+    private fun getItem(position: Int): StationEntity = stationList[position]
 
-    fun filterStation(station: ApiSpaceStationModel?) {
+    fun filterStation(station: StationEntity?) {
         station?.let {
             this.stationList.clear()
             this.stationList.add(station)
@@ -35,7 +35,7 @@ class StationsAdapter constructor(
         }
     }
 
-    fun setData(list: MutableList<ApiSpaceStationModel>, currentStation: ApiSpaceStationModel?) {
+    fun setData(list: MutableList<StationEntity>, currentStation: StationEntity?) {
         this.stationList.clear()
         this.stationList.addAll(list)
         currentStation?.let {
@@ -53,7 +53,7 @@ class StationsAdapter constructor(
             }
         }
 
-        fun bind(data: ApiSpaceStationModel) {
+        fun bind(data: StationEntity) {
             itemBinding.apply {
                 tvStationName.text = data.name
             }
@@ -61,8 +61,8 @@ class StationsAdapter constructor(
     }
 
     interface ItemClickListener {
-        fun onTravelClicked(station: ApiSpaceStationModel)
-        fun onFavouriteClicked(station: ApiSpaceStationModel)
+        fun onTravelClicked(station: StationEntity)
+        fun onFavouriteClicked(station: StationEntity)
     }
 
 }
