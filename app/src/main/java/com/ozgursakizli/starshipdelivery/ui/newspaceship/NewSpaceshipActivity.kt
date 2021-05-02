@@ -1,11 +1,15 @@
 package com.ozgursakizli.starshipdelivery.ui.newspaceship
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.ozgursakizli.starshipdelivery.R
 import com.ozgursakizli.starshipdelivery.databinding.ActivityNewSpaceshipBinding
+import com.ozgursakizli.starshipdelivery.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -40,9 +44,7 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
             seekDurability.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
             seekSpeed.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
             seekCapacity.setOnSeekBarChangeListener(this@NewSpaceshipActivity)
-            btnContinue.setOnClickListener {
-                finish()
-            }
+            btnContinue.setOnClickListener { createShipAndFinish() }
             calculateRemainingPoints()
             updateTexts()
         }
@@ -83,8 +85,29 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
         }
     }
 
+    private fun createShipAndFinish() {
+        binding.apply {
+            if (edtShipName.text.isNullOrEmpty()) {
+                edtShipName.error = getString(R.string.empty_name_error)
+                return
+            }
+
+            if (remainingPoints != 0) {
+                tvTotalPoints.setTextColor(ContextCompat.getColor(this@NewSpaceshipActivity, R.color.red))
+                Toast.makeText(this@NewSpaceshipActivity, R.string.remaining_points_error, Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+        Intent(this@NewSpaceshipActivity, MainActivity::class.java).apply {
+            startActivity(this)
+            finish()
+        }
+    }
+
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         Timber.d("onProgressChanged::progress: $progress")
+        binding.tvTotalPoints.setTextColor(ContextCompat.getColor(this@NewSpaceshipActivity, R.color.black))
 
         seekBar?.let {
             if (progress < minPoint) {

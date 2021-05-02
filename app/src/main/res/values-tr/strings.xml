@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Starship Delivery</string>
     <string name="create_new_ship">Uzay Gemini Oluştur</string>
-    <string name="give_a_name">İsim ver</string>
+    <string name="give_a_name">Gemine isim ver</string>
+    <string name="empty_name_error">Geminize isim vermelisiniz!</string>
     <string name="durability">Dayanıklılık: %1$s </string>
     <string name="speed">Hız: %1$s</string>
     <string name="material_capacity">Malzeme Kapasitesi: %1$s</string>
     <string name="spaceship_points">Toplam dağıtılabilir puan: %1$s</string>
     <string name="continue_button">Devam Et</string>
+    <string name="remaining_points_error">Kalan puanları harcamalısın!</string>
 </resources>

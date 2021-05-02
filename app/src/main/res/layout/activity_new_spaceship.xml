@@ -29,23 +29,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTotalPoints" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtShipName"
-        android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/shipNameLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:background="@drawable/background_edittext_corner"
-        android:gravity="center|start"
-        android:hint="@string/give_a_name"
-        android:inputType="text"
-        android:maxLength="10"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="14sp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtShipName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edittext_corner"
+            android:gravity="center|start"
+            android:hint="@string/give_a_name"
+            android:inputType="text"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/durabilityContainer"
@@ -55,7 +62,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtShipName">
+        app:layout_constraintTop_toBottomOf="@+id/shipNameLayout">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDurability"
