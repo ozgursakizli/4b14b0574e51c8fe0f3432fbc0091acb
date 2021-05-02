@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipRepository
 import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
-import com.ozgursakizli.starshipdelivery.network.generic.ApiResponse
-import com.ozgursakizli.starshipdelivery.network.spacestations.SpaceStationsRepository
+import com.ozgursakizli.starshipdelivery.database.stations.StationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -17,8 +16,8 @@ import timber.log.Timber
 
 @HiltViewModel
 class StationsViewModel @Inject constructor(
-    private val spaceStationsRepository: SpaceStationsRepository,
-    private val spaceshipRepository: SpaceshipRepository
+    private val spaceshipRepository: SpaceshipRepository,
+    private val stationsRepository: StationsRepository
 ) : ViewModel() {
 
     private var _spaceShip = MutableLiveData<SpaceshipEntity>()
@@ -38,16 +37,8 @@ class StationsViewModel @Inject constructor(
     fun getSpaceStations() {
         Timber.d("getSpaceStations")
         viewModelScope.launch {
-            spaceStationsRepository.getSpaceStations().collect { result ->
-                when (result) {
-                    is ApiResponse.Success -> {
-                        _spaceStations.postValue(result.data)
-                    }
-                    is ApiResponse.Error -> {
-                        Timber.e("getSpaceStations:: $result")
-                    }
-                    is ApiResponse.Exception -> Timber.e("getSpaceStations::error: $result")
-                }
+            stationsRepository.getStations().collect {
+                _spaceStations.postValue(it)
             }
         }
     }

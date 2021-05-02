@@ -26,3 +26,7 @@ sealed class SpaceshipEvents {
     object SaveSuccess : SpaceshipEvents()
     object SaveFailed : SpaceshipEvents()
 }
+
+sealed class StationEvents {
+    object ShouldFetch : StationEvents()
+}

@@ -5,9 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.ozgursakizli.starshipdelivery.databinding.ActivitySplashBinding
 import com.ozgursakizli.starshipdelivery.ui.main.MainActivity
 import com.ozgursakizli.starshipdelivery.ui.newspaceship.NewSpaceshipActivity
+import com.ozgursakizli.starshipdelivery.utilities.EventObserver
+import com.ozgursakizli.starshipdelivery.utilities.StationEvents
+import com.ozgursakizli.starshipdelivery.workmanager.StationsUpdateManager
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -36,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
                     openNextActivity(NextActivity.MAIN_ACTIVITY)
                 }
             })
+            event.observe(this@SplashActivity, EventObserver(::eventHandler))
         }
     }
 
@@ -71,6 +79,22 @@ class SplashActivity : AppCompatActivity() {
                 Timber.d("onAnimationRepeat")
             }
         }).alpha(0F).duration = 2000
+    }
+
+    private fun eventHandler(eventType: StationEvents) {
+        Timber.d("eventHandler::eventType: ${eventType.javaClass.name}")
+
+        when (eventType) {
+            is StationEvents.ShouldFetch -> {
+                startStationsFetchWorker()
+            }
+        }
+    }
+
+    private fun startStationsFetchWorker() {
+        val networkConstraint = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val uploadWorkRequest = OneTimeWorkRequestBuilder<StationsUpdateManager>().setConstraints(networkConstraint).build()
+        WorkManager.getInstance(this).enqueue(uploadWorkRequest)
     }
 
     private enum class NextActivity {

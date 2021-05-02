@@ -25,6 +25,11 @@
         </activity>
         <activity android:name=".ui.newspaceship.NewSpaceshipActivity" />
         <activity android:name=".ui.main.MainActivity" />
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove" />
     </application>
 
 </manifest>
