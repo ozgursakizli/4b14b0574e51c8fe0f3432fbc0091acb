@@ -107,12 +107,20 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
             }
         }
 
+        val durability = binding.seekDurability.progress
+        val speed = binding.seekSpeed.progress
+        val capacity = binding.seekCapacity.progress
+
         val spaceShip = SpaceshipEntity(
             name = binding.edtShipName.text.toString().trim(),
             damageCapacity = 100,
-            durability = binding.seekDurability.progress,
-            speed = binding.seekSpeed.progress,
-            materialCapacity = binding.seekCapacity.progress)
+            damageSeconds = durability * 10,
+            durability = durability,
+            speed = speed,
+            materialCapacity = capacity,
+            ugs = capacity * 10000,
+            eus = speed * 20,
+            ds = durability * 10000)
         newSpaceshipViewModel.insertShip(spaceShip)
     }
 

@@ -3,4 +3,5 @@
     <string name="ugs" translatable="false">UGS: %1$s</string>
     <string name="eus" translatable="false">EUS: %1$s</string>
     <string name="ds" translatable="false">DS: %1$s</string>
+    <string name="damage_seconds" translatable="false">%1$ss</string>
 </resources>
