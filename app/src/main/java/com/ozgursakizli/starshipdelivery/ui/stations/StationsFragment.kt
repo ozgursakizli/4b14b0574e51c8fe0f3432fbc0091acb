@@ -67,7 +67,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
 
         if (station == null) {
             updateCurrentStation(currentStation)
-        } else {
+        } else if (station != currentStation) {
             stationsAdapter?.filterStation(station)
         }
     }
