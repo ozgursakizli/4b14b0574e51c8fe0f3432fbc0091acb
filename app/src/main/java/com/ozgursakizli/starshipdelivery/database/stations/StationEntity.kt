@@ -19,6 +19,7 @@ data class StationEntity(
     val stock: Int,
     @SerializedName("need")
     val need: Int,
+    var isFavourite: Boolean = false,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -30,6 +31,7 @@ data class StationEntity(
                 ", coordinateY: $coordinateY" +
                 ", capacity: $capacity" +
                 ", stock: $stock" +
-                ", need: $need"
+                ", need: $need" +
+                ", isFavourite: $isFavourite"
     }
 }

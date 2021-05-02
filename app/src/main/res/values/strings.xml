@@ -14,4 +14,5 @@
     <string name="favourites">Favourites</string>
     <string name="travel">Start Travel</string>
     <string name="search_station">Search Station</string>
+    <string name="empty_favourite_list">You don\'t have any stations yet</string>
 </resources>

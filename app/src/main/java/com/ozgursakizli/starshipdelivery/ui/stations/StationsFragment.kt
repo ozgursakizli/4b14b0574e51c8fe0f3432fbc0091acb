@@ -79,6 +79,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
                 updateUi(it)
             })
             spaceStations.observe(viewLifecycleOwner, {
+                items.clear()
                 items.addAll(it)
                 stationsAdapter?.setData(items, currentStation)
             })
@@ -113,12 +114,15 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
 
     override fun onFavouriteClicked(station: StationEntity) {
         Timber.d("onFavouriteClicked")
+        station.isFavourite = !station.isFavourite
+        stationsViewModel.updateStation(station)
     }
 
     override fun onDestroyView() {
         Timber.d("onDestroyView")
         _binding = null
         stationsAdapter = null
+        currentStation = null
         super.onDestroyView()
     }
 

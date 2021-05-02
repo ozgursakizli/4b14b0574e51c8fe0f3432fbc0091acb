@@ -9,6 +9,10 @@ class StationsRepository @Inject constructor(private val stationsDao: StationsDa
         return stationsDao.getStations()
     }
 
+    override fun getFavouriteStations(): Flow<List<StationEntity>> {
+        return stationsDao.getFavouriteStations()
+    }
+
     override suspend fun insert(stationList: List<StationEntity>) {
         return stationsDao.insert(stationList)
     }

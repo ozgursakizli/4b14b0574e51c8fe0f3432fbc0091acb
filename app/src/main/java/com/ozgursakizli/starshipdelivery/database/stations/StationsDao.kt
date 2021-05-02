@@ -14,6 +14,9 @@ interface StationsDao : StationsDataSource {
     @Query("SELECT * FROM ${DatabaseConstants.STATIONS_TABLE}")
     override fun getStations(): Flow<List<StationEntity>>
 
+    @Query("SELECT * FROM ${DatabaseConstants.STATIONS_TABLE} WHERE isFavourite==1")
+    override fun getFavouriteStations(): Flow<List<StationEntity>>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     override suspend fun insert(stationList: List<StationEntity>)
 

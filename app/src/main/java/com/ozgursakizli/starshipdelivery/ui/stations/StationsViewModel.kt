@@ -56,4 +56,11 @@ class StationsViewModel @Inject constructor(
         }
     }
 
+    fun updateStation(station: StationEntity) {
+        Timber.d("updateStation::station: $station")
+        viewModelScope.launch {
+            stationsRepository.update(station)
+        }
+    }
+
 }

@@ -2,10 +2,11 @@ package com.ozgursakizli.starshipdelivery.ui.stations
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.ozgursakizli.starshipdelivery.R
 import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.databinding.ItemStationBinding
-
 
 class StationsAdapter constructor(
     private val onItemClickListener: ItemClickListener
@@ -53,9 +54,14 @@ class StationsAdapter constructor(
             }
         }
 
-        fun bind(data: StationEntity) {
+        fun bind(station: StationEntity) {
             itemBinding.apply {
-                tvStationName.text = data.name
+                tvStationName.text = station.name
+                if (station.isFavourite) {
+                    imgFavourite.setImageDrawable(ContextCompat.getDrawable(itemBinding.root.context, R.drawable.ic_favourite_selected))
+                } else {
+                    imgFavourite.setImageDrawable(ContextCompat.getDrawable(itemBinding.root.context, R.drawable.ic_favourite))
+                }
             }
         }
     }
