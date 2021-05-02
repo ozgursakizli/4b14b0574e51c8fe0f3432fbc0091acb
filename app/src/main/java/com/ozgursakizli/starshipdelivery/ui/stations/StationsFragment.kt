@@ -82,6 +82,11 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
                 items.clear()
                 items.addAll(it)
                 stationsAdapter?.setData(items, currentStation)
+
+                if (currentStation == null) {
+                    currentStation = items[0]
+                    updateSpaceshipLocation(currentStation)
+                }
             })
             fetchSpaceship()
             getSpaceStations()
