@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,6 +23,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     private val stationsViewModel: StationsViewModel by viewModels()
     private var stationsAdapter: StationsAdapter? = null
     private var items = arrayListOf<ApiSpaceStationModel>()
+    private lateinit var currentStation: ApiSpaceStationModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Timber.d("onCreateView")
@@ -32,11 +34,11 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.d("onCreateView")
         super.onViewCreated(view, savedInstanceState)
-        initPager()
+        initUi()
         observeViewModel()
     }
 
-    private fun initPager() {
+    private fun initUi() {
         Timber.d("initPager")
         stationsAdapter = StationsAdapter(this)
 
@@ -44,6 +46,29 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
             slider.adapter = stationsAdapter
             slider.offscreenPageLimit = 3
             TabLayoutMediator(sliderTabLayout, slider) { _, _ -> }.attach()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    onSearch(query)
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    onSearch(newText)
+                    return true
+                }
+
+            })
+        }
+    }
+
+    private fun onSearch(stationName: String?) {
+        val station = items.find { it.name.equals(stationName, true) }
+
+        if (station == null) {
+            updateCurrentStation(currentStation)
+        } else {
+            stationsAdapter?.filterStation(station)
         }
     }
 
@@ -55,7 +80,9 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
             })
             spaceStations.observe(viewLifecycleOwner, {
                 items.addAll(it)
-                stationsAdapter?.setData(it)
+            })
+            currentStation.observe(viewLifecycleOwner, {
+                updateCurrentStation(it)
             })
         }
     }
@@ -71,8 +98,14 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
         }
     }
 
+    private fun updateCurrentStation(apiSpaceStationModel: ApiSpaceStationModel) {
+        currentStation = apiSpaceStationModel
+        binding.tvCurrentStation.text = apiSpaceStationModel.name
+        stationsAdapter?.setData(items, apiSpaceStationModel)
+    }
+
     override fun onTravelClicked(station: ApiSpaceStationModel) {
-        Timber.d("onTravelClicked")
+        updateCurrentStation(station)
     }
 
     override fun onFavouriteClicked(station: ApiSpaceStationModel) {

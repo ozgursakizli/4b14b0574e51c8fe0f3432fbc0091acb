@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ozgursakizli.starshipdelivery.databinding.ItemStationBinding
 import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
 
+
 class StationsAdapter constructor(
     private val onItemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<StationsAdapter.StationViewHolder>() {
 
-    private var stationList: List<ApiSpaceStationModel> = arrayListOf()
+    private var stationList: MutableList<ApiSpaceStationModel> = arrayListOf()
+    private lateinit var currentStation: ApiSpaceStationModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationsAdapter.StationViewHolder {
         val itemBinding = ItemStationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,8 +27,19 @@ class StationsAdapter constructor(
 
     private fun getItem(position: Int): ApiSpaceStationModel = stationList[position]
 
-    fun setData(list: List<ApiSpaceStationModel>) {
-        this.stationList = list
+    fun filterStation(station: ApiSpaceStationModel?) {
+        station?.let {
+            this.stationList.clear()
+            this.stationList.add(station)
+            notifyDataSetChanged()
+        }
+    }
+
+    fun setData(list: MutableList<ApiSpaceStationModel>, currentStation: ApiSpaceStationModel) {
+        this.currentStation = currentStation
+        this.stationList.clear()
+        this.stationList.addAll(list)
+        this.stationList.contains(currentStation).apply { stationList.remove(currentStation) }
         notifyDataSetChanged()
     }
 

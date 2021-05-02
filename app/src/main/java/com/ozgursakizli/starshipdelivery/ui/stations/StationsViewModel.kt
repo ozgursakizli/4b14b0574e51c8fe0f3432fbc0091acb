@@ -25,6 +25,8 @@ class StationsViewModel @Inject constructor(
     val spaceShip: LiveData<SpaceshipEntity> = _spaceShip
     private var _spaceStations = MutableLiveData<List<ApiSpaceStationModel>>()
     val spaceStations: LiveData<List<ApiSpaceStationModel>> = _spaceStations
+    private var _currentStation = MutableLiveData<ApiSpaceStationModel>()
+    val currentStation: LiveData<ApiSpaceStationModel> = _currentStation
 
     init {
         fetchSpaceship()
@@ -45,6 +47,7 @@ class StationsViewModel @Inject constructor(
                 when (result) {
                     is ApiResponse.Success -> {
                         _spaceStations.postValue(result.data)
+                        _currentStation.postValue(result.data?.get(0))
                     }
                     is ApiResponse.Error -> {
                         Timber.e("getSpaceStations:: $result")
