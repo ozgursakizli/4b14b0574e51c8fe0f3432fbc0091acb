@@ -1,4 +1,4 @@
-package com.ozgursakizli.starshipdelivery.ui.main
+package com.ozgursakizli.starshipdelivery.ui.stations
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class StationsViewModel @Inject constructor(
     private val spaceStationsRepository: SpaceStationsRepository,
     private val spaceshipRepository: SpaceshipRepository
 ) : ViewModel() {

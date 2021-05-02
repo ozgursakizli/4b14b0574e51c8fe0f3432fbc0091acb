@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ugs" translatable="false">UGS: %1$s</string>
+    <string name="eus" translatable="false">EUS: %1$s</string>
+    <string name="ds" translatable="false">DS: %1$s</string>
+</resources>

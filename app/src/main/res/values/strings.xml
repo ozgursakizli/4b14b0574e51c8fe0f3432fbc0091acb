@@ -12,4 +12,6 @@
     <string name="error_occurred">An error occurred. Please try again.</string>
     <string name="stations">Stations</string>
     <string name="favourites">Favourites</string>
+    <string name="travel">Start Travel</string>
+    <string name="search_station">Search Station</string>
 </resources>
