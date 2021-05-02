@@ -25,34 +25,41 @@ class StationsViewModel @Inject constructor(
     val spaceShip: LiveData<SpaceshipEntity> = _spaceShip
     private var _spaceStations = MutableLiveData<List<ApiSpaceStationModel>>()
     val spaceStations: LiveData<List<ApiSpaceStationModel>> = _spaceStations
-    private var _currentStation = MutableLiveData<ApiSpaceStationModel>()
-    val currentStation: LiveData<ApiSpaceStationModel> = _currentStation
 
-    init {
-        fetchSpaceship()
-        getSpaceStations()
-    }
-
-    private fun fetchSpaceship() {
+    fun fetchSpaceship() {
         Timber.d("fetchSpaceship")
         viewModelScope.launch {
-            spaceshipRepository.getSpaceship().collect { _spaceShip.postValue(it) }
+            spaceshipRepository.getSpaceship().collect {
+                _spaceShip.postValue(it)
+            }
         }
     }
 
-    private fun getSpaceStations() {
+    fun getSpaceStations() {
         Timber.d("getSpaceStations")
         viewModelScope.launch {
             spaceStationsRepository.getSpaceStations().collect { result ->
                 when (result) {
                     is ApiResponse.Success -> {
                         _spaceStations.postValue(result.data)
-                        _currentStation.postValue(result.data?.get(0))
                     }
                     is ApiResponse.Error -> {
                         Timber.e("getSpaceStations:: $result")
                     }
                     is ApiResponse.Exception -> Timber.e("getSpaceStations::error: $result")
+                }
+            }
+        }
+    }
+
+    fun updateSpaceshipLocation(station: ApiSpaceStationModel?) {
+        Timber.d("updateSpaceshipLocation::station: $station")
+        station?.let {
+            viewModelScope.launch {
+                _spaceShip.value?.let { ship ->
+                    ship.currentStation = station
+                    val result = spaceshipRepository.update(ship)
+                    Timber.d("updateSpaceshipLocation::result: $result, ship: $ship")
                 }
             }
         }

@@ -23,7 +23,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     private val stationsViewModel: StationsViewModel by viewModels()
     private var stationsAdapter: StationsAdapter? = null
     private var items = arrayListOf<ApiSpaceStationModel>()
-    private lateinit var currentStation: ApiSpaceStationModel
+    private var currentStation: ApiSpaceStationModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Timber.d("onCreateView")
@@ -80,10 +80,10 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
             })
             spaceStations.observe(viewLifecycleOwner, {
                 items.addAll(it)
+                stationsAdapter?.setData(items, currentStation)
             })
-            currentStation.observe(viewLifecycleOwner, {
-                updateCurrentStation(it)
-            })
+            fetchSpaceship()
+            getSpaceStations()
         }
     }
 
@@ -95,17 +95,20 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
             tvUgs.text = String.format(getString(R.string.ugs), spaceship.ugs)
             tvEus.text = String.format(getString(R.string.eus), spaceship.eus)
             tvDs.text = String.format(getString(R.string.ds), spaceship.ds)
+            spaceship.currentStation?.let { updateCurrentStation(it) }
         }
     }
 
-    private fun updateCurrentStation(apiSpaceStationModel: ApiSpaceStationModel) {
-        currentStation = apiSpaceStationModel
-        binding.tvCurrentStation.text = apiSpaceStationModel.name
-        stationsAdapter?.setData(items, apiSpaceStationModel)
+    private fun updateCurrentStation(apiSpaceStationModel: ApiSpaceStationModel?) {
+        apiSpaceStationModel?.let {
+            currentStation = apiSpaceStationModel
+            binding.tvCurrentStation.text = apiSpaceStationModel.name
+            stationsAdapter?.setData(items, apiSpaceStationModel)
+        }
     }
 
     override fun onTravelClicked(station: ApiSpaceStationModel) {
-        updateCurrentStation(station)
+        stationsViewModel.updateSpaceshipLocation(station)
     }
 
     override fun onFavouriteClicked(station: ApiSpaceStationModel) {

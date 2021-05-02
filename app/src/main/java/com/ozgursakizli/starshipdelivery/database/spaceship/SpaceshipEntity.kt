@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ozgursakizli.starshipdelivery.database.DatabaseConstants
+import com.ozgursakizli.starshipdelivery.models.ApiSpaceStationModel
 
 @Entity(tableName = DatabaseConstants.SPACESHIP_TABLE)
 data class SpaceshipEntity(
@@ -24,7 +25,9 @@ data class SpaceshipEntity(
     @ColumnInfo(name = "eus")
     val eus: Int,
     @ColumnInfo(name = "ds")
-    val ds: Int
+    val ds: Int,
+    @ColumnInfo(name = "current_station")
+    var currentStation: ApiSpaceStationModel?
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -39,6 +42,7 @@ data class SpaceshipEntity(
                 ", materialCapacity: $materialCapacity" +
                 ", ugs: $ugs" +
                 ", eus: $eus" +
-                ", ds: $ds"
+                ", ds: $ds" +
+                ", currentStation: $currentStation"
     }
 }

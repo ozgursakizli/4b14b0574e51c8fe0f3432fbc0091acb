@@ -35,11 +35,13 @@ class StationsAdapter constructor(
         }
     }
 
-    fun setData(list: MutableList<ApiSpaceStationModel>, currentStation: ApiSpaceStationModel) {
-        this.currentStation = currentStation
+    fun setData(list: MutableList<ApiSpaceStationModel>, currentStation: ApiSpaceStationModel?) {
         this.stationList.clear()
         this.stationList.addAll(list)
-        this.stationList.contains(currentStation).apply { stationList.remove(currentStation) }
+        currentStation?.let {
+            this.currentStation = currentStation
+            this.stationList.contains(currentStation).apply { stationList.remove(currentStation) }
+        }
         notifyDataSetChanged()
     }
 

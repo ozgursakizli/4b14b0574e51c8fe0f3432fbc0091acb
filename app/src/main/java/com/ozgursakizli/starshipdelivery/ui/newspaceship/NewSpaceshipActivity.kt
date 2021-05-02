@@ -120,7 +120,8 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
             materialCapacity = capacity,
             ugs = capacity * 10000,
             eus = speed * 20,
-            ds = durability * 10000)
+            ds = durability * 10000,
+            currentStation = null)
         newSpaceshipViewModel.insertShip(spaceShip)
     }
 
