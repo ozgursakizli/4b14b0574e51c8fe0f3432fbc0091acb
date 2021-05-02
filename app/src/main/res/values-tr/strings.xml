@@ -9,4 +9,5 @@
     <string name="spaceship_points">Toplam dağıtılabilir puan: %1$s</string>
     <string name="continue_button">Devam Et</string>
     <string name="remaining_points_error">Kalan puanları harcamalısın!</string>
+    <string name="error_occurred">Bir hata oluştu. Lütfen tekrar deneyiniz.</string>
 </resources>

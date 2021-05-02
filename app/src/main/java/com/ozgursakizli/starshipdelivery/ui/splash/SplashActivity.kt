@@ -26,6 +26,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
+        Timber.d("observeViewModel")
         with(splashViewModel) {
             spaceShip.observe(this@SplashActivity, {
                 Timber.d("spaceShip:: $it")

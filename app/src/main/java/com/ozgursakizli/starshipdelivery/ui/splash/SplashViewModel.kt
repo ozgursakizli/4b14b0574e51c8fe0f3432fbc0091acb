@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -24,6 +25,7 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun fetchSpaceship() {
+        Timber.d("fetchSpaceship")
         viewModelScope.launch {
             spaceshipRepository.getSpaceship().collect { _spaceShip.postValue(it) }
         }

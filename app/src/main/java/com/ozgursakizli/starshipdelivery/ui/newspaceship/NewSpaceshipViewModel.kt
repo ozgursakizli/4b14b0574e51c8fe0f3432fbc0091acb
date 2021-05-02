@@ -6,51 +6,45 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
 import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipRepository
+import com.ozgursakizli.starshipdelivery.utilities.Event
+import com.ozgursakizli.starshipdelivery.utilities.SpaceshipEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltViewModel
 class NewSpaceshipViewModel @Inject constructor(
     private val spaceshipRepository: SpaceshipRepository
 ) : ViewModel() {
 
-    /*
-    private var _spaceStations = MutableLiveData<List<ApiSpaceStationModel>>()
-    val spaceStations: LiveData<List<ApiSpaceStationModel>> = _spaceStations
-     */
-
     private var _spaceShip = MutableLiveData<SpaceshipEntity>()
     val spaceShip: LiveData<SpaceshipEntity> = _spaceShip
+    private val _event = MutableLiveData<Event<SpaceshipEvents>>()
+    val event: LiveData<Event<SpaceshipEvents>> get() = _event
 
     init {
-        // getSpaceStations()
         fetchSpaceship()
     }
 
-    /*
-    private fun getSpaceStations() {
-        Timber.d("getSpaceStations")
-        viewModelScope.launch {
-            spaceStationsRepository.getSpaceStations().collect { result ->
-                when (result) {
-                    is ApiResponse.Success -> {
-                        _spaceStations.postValue(result.data)
-                    }
-                    is ApiResponse.Error -> {
-                        Timber.e("getSpaceStations:: $result")
-                    }
-                    is ApiResponse.Exception -> Timber.e("getSpaceStations::error: $result")
-                }
-            }
-        }
-    }
-     */
-
     private fun fetchSpaceship() {
+        Timber.d("fetchSpaceship")
         viewModelScope.launch {
             spaceshipRepository.getSpaceship().collect { _spaceShip.postValue(it) }
+        }
+    }
+
+    fun insertShip(spaceshipEntity: SpaceshipEntity) {
+        Timber.d("insertShip::spaceshipEntity: $spaceshipEntity")
+        viewModelScope.launch {
+            val id = spaceshipRepository.insert(spaceshipEntity)
+
+            if (id > 0) {
+                _event.postValue(Event(SpaceshipEvents.SaveSuccess))
+            } else {
+                _event.postValue(Event(SpaceshipEvents.SaveFailed))
+            }
         }
     }
 

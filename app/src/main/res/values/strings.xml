@@ -9,4 +9,5 @@
     <string name="spaceship_points">Total available points: %1$s</string>
     <string name="continue_button">Continue</string>
     <string name="remaining_points_error">You should spend remaining points!</string>
+    <string name="error_occurred">An error occurred. Please try again.</string>
 </resources>

@@ -11,12 +11,12 @@ data class SpaceshipEntity(
     val name: String,
     @ColumnInfo(name = "damage_capacity")
     val damageCapacity: Int,
+    @ColumnInfo(name = "durability")
+    val durability: Int,
     @ColumnInfo(name = "speed")
     val speed: Int,
     @ColumnInfo(name = "material_capacity")
-    val materialCapacity: Int,
-    @ColumnInfo(name = "durability")
-    val durability: Int
+    val materialCapacity: Int
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -25,8 +25,8 @@ data class SpaceshipEntity(
         return "id: $id" +
                 ", name: $name" +
                 ", damageCapacity: $damageCapacity" +
+                ", durability: $durability" +
                 ", speed: $speed" +
-                ", materialCapacity: $materialCapacity" +
-                ", durability: $durability"
+                ", materialCapacity: $materialCapacity"
     }
 }

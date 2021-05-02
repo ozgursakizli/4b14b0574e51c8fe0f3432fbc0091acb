@@ -8,8 +8,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ozgursakizli.starshipdelivery.R
+import com.ozgursakizli.starshipdelivery.database.spaceship.SpaceshipEntity
 import com.ozgursakizli.starshipdelivery.databinding.ActivityNewSpaceshipBinding
 import com.ozgursakizli.starshipdelivery.ui.main.MainActivity
+import com.ozgursakizli.starshipdelivery.utilities.EventObserver
+import com.ozgursakizli.starshipdelivery.utilities.SpaceshipEvents
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -33,6 +36,7 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
     }
 
     private fun initUi() {
+        Timber.d("initUi")
         title = getString(R.string.create_new_ship)
         binding.apply {
             seekDurability.max = maxPoint
@@ -51,6 +55,7 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
     }
 
     private fun updateTexts() {
+        Timber.d("updateTexts")
         binding.apply {
             tvDurability.text = String.format(getString(R.string.durability), seekDurability.progress)
             tvSpeed.text = String.format(getString(R.string.speed), seekSpeed.progress)
@@ -60,6 +65,7 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
     }
 
     private fun calculateRemainingPoints() {
+        Timber.d("calculateRemainingPoints")
         binding.apply {
             val givenPoints = seekDurability.progress + seekSpeed.progress + seekCapacity.progress
             remainingPoints = totalPoints - givenPoints
@@ -82,12 +88,14 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
             spaceShip.observe(this@NewSpaceshipActivity, {
                 Timber.d("spaceship:: $it")
             })
+            event.observe(this@NewSpaceshipActivity, EventObserver(::eventHandler))
         }
     }
 
     private fun createShipAndFinish() {
+        Timber.d("createShipAndFinish")
         binding.apply {
-            if (edtShipName.text.isNullOrEmpty()) {
+            if (edtShipName.text.toString().trim().isEmpty()) {
                 edtShipName.error = getString(R.string.empty_name_error)
                 return
             }
@@ -99,9 +107,28 @@ class NewSpaceshipActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListene
             }
         }
 
-        Intent(this@NewSpaceshipActivity, MainActivity::class.java).apply {
-            startActivity(this)
-            finish()
+        val spaceShip = SpaceshipEntity(
+            name = binding.edtShipName.text.toString().trim(),
+            damageCapacity = 100,
+            durability = binding.seekDurability.progress,
+            speed = binding.seekSpeed.progress,
+            materialCapacity = binding.seekCapacity.progress)
+        newSpaceshipViewModel.insertShip(spaceShip)
+    }
+
+    private fun eventHandler(eventType: SpaceshipEvents) {
+        Timber.d("eventHandler::eventType: ${eventType.javaClass.name}")
+
+        when (eventType) {
+            is SpaceshipEvents.SaveSuccess -> {
+                Intent(this@NewSpaceshipActivity, MainActivity::class.java).apply {
+                    startActivity(this)
+                    finish()
+                }
+            }
+            is SpaceshipEvents.SaveFailed -> {
+                Toast.makeText(this@NewSpaceshipActivity, R.string.error_occurred, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
