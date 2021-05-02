@@ -1,4 +1,4 @@
-package com.ozgursakizli.starshipdelivery.ui
+package com.ozgursakizli.starshipdelivery.ui.stations
 
 import android.os.Bundle
 import android.view.LayoutInflater

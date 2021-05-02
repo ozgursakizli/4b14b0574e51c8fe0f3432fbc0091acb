@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/stationsFragment"
-        android:name="com.ozgursakizli.starshipdelivery.ui.StationsFragment"
+        android:name="com.ozgursakizli.starshipdelivery.ui.stations.StationsFragment"
         android:label="@string/stations"
         tools:layout="@layout/fragment_stations" />
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.ozgursakizli.starshipdelivery.ui.FavouritesFragment"
+        android:name="com.ozgursakizli.starshipdelivery.ui.favourites.FavouritesFragment"
         android:label="@string/favourites"
         tools:layout="@layout/fragment_favourites" />
 </navigation>
