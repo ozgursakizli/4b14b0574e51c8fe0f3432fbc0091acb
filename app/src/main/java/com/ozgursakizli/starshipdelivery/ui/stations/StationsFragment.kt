@@ -23,6 +23,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     private val stationsViewModel: StationsViewModel by viewModels()
     private var stationsAdapter: StationsAdapter? = null
     private var items = arrayListOf<StationEntity>()
+    private var spaceShip: SpaceshipEntity? = null
     private var currentStation: StationEntity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -85,7 +86,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
 
                 if (currentStation == null) {
                     currentStation = items[0]
-                    updateSpaceship(currentStation)
+                    updateSpaceshipLocation(currentStation)
                 }
             })
             fetchSpaceship()
@@ -93,15 +94,18 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
         }
     }
 
-    private fun updateUi(spaceship: SpaceshipEntity) {
+    private fun updateUi(spaceshipEntity: SpaceshipEntity) {
+        spaceShip = spaceshipEntity
         binding.apply {
-            tvSpaceshipName.text = spaceship.name
-            tvDamageCapacity.text = spaceship.damageCapacity.toString()
-            tvDamageSeconds.text = String.format(getString(R.string.damage_seconds), spaceship.damageSeconds)
-            tvUgs.text = String.format(getString(R.string.ugs), spaceship.ugs)
-            tvEus.text = String.format(getString(R.string.eus), spaceship.eus)
-            tvDs.text = String.format(getString(R.string.ds), spaceship.ds)
-            spaceship.currentStation?.let { updateCurrentStation(it) }
+            with(spaceshipEntity) {
+                tvSpaceshipName.text = name
+                tvDamageCapacity.text = damageCapacity.toString()
+                tvDamageSeconds.text = String.format(getString(R.string.damage_seconds), damageSeconds)
+                tvUgs.text = String.format(getString(R.string.ugs), ugs)
+                tvEus.text = String.format(getString(R.string.eus), eus)
+                tvDs.text = String.format(getString(R.string.ds), ds)
+                currentStation?.let { updateCurrentStation(it) }
+            }
         }
     }
 
@@ -113,8 +117,34 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
         }
     }
 
+    private fun shouldStartTravel(station: StationEntity): Boolean {
+        if (spaceShip == null) return false
+        if (station.id == 1L) return true
+
+        if (spaceShip!!.ugs == 0 ||
+            station.need == 0) {
+            return false
+        }
+
+        return true
+    }
+
     override fun onTravelClicked(station: StationEntity) {
-        stationsViewModel.updateSpaceship(station)
+        if (shouldStartTravel(station)) {
+            val stationNeed: Int = station.need
+            val ugsStock: Int = spaceShip!!.ugs
+
+            if (stationNeed > ugsStock) {
+                return
+            }
+
+            spaceShip!!.ugs = ugsStock - stationNeed
+            station.need = 0
+            station.stock = station.capacity
+            stationsViewModel.updateStocks(spaceShip!!)
+            stationsViewModel.updateStation(station)
+            stationsViewModel.updateSpaceshipLocation(station)
+        }
     }
 
     override fun onFavouriteClicked(station: StationEntity) {

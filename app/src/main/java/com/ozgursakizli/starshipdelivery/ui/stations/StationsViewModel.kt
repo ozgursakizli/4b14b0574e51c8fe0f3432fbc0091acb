@@ -43,7 +43,15 @@ class StationsViewModel @Inject constructor(
         }
     }
 
-    fun updateSpaceship(station: StationEntity?) {
+    fun updateStocks(spaceshipEntity: SpaceshipEntity) {
+        Timber.d("updateStocks::spaceshipEntity: $spaceshipEntity")
+        viewModelScope.launch {
+            spaceshipRepository.update(spaceshipEntity)
+            _spaceShip.postValue(spaceshipEntity)
+        }
+    }
+
+    fun updateSpaceshipLocation(station: StationEntity?) {
         Timber.d("updateSpaceship::station: $station")
         station?.let {
             viewModelScope.launch {

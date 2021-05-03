@@ -21,7 +21,7 @@ data class SpaceshipEntity(
     @ColumnInfo(name = "material_capacity")
     val materialCapacity: Int,
     @ColumnInfo(name = "ugs")
-    val ugs: Int,
+    var ugs: Int,
     @ColumnInfo(name = "eus")
     val eus: Int,
     @ColumnInfo(name = "ds")
