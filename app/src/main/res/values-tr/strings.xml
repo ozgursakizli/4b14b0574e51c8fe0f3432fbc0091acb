@@ -18,4 +18,5 @@
     <string name="capacity">Kapasite</string>
     <string name="stock">Stok</string>
     <string name="need">İhtiyaç</string>
+    <string name="distance_to_earth">Dünya\'ya uzaklığı %1$s</string>
 </resources>

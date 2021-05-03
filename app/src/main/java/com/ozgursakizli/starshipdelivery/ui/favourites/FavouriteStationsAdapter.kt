@@ -3,8 +3,10 @@ package com.ozgursakizli.starshipdelivery.ui.favourites
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ozgursakizli.starshipdelivery.R
 import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.databinding.ItemFavouriteStationBinding
+import com.ozgursakizli.starshipdelivery.utilities.DistanceCalculator
 
 class FavouriteStationsAdapter constructor(
     private val onItemClickListener: ItemClickListener
@@ -38,9 +40,11 @@ class FavouriteStationsAdapter constructor(
             }
         }
 
-        fun bind(data: StationEntity) {
+        fun bind(station: StationEntity) {
             itemBinding.apply {
-                tvStationName.text = data.name
+                tvStationName.text = station.name
+                val distance = DistanceCalculator.calculateDistance(0F, 0F, station.coordinateX, station.coordinateY)
+                tvEus.text = String.format(itemBinding.root.context.getString(R.string.distance_to_earth), distance)
             }
         }
     }

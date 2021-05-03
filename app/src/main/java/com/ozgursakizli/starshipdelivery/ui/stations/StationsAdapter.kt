@@ -14,7 +14,7 @@ class StationsAdapter constructor(
 ) : RecyclerView.Adapter<StationsAdapter.StationViewHolder>() {
 
     private var stationList: MutableList<StationEntity> = arrayListOf()
-    private lateinit var currentStation: StationEntity
+    private var currentStation: StationEntity? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationsAdapter.StationViewHolder {
         val itemBinding = ItemStationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -58,11 +58,15 @@ class StationsAdapter constructor(
         fun bind(station: StationEntity) {
             itemBinding.apply {
                 tvStationName.text = station.name
-                val distance = DistanceCalculator.calculateDistance(currentStation.coordinateX, currentStation.coordinateY, station.coordinateX, station.coordinateY)
-                tvEus.text = String.format(itemBinding.root.context.getString(R.string.eus), distance)
                 tvCapacityValue.text = station.capacity.toString()
                 tvStockValue.text = station.stock.toString()
                 tvNeedValue.text = station.need.toString()
+
+                currentStation?.let {
+                    val distance = DistanceCalculator.calculateDistance(it.coordinateX, it.coordinateY, station.coordinateX, station.coordinateY)
+                    tvEus.text = String.format(itemBinding.root.context.getString(R.string.eus), distance)
+                }
+
                 if (station.isFavourite) {
                     imgFavourite.setImageDrawable(ContextCompat.getDrawable(itemBinding.root.context, R.drawable.ic_favourite_selected))
                 } else {
