@@ -57,6 +57,9 @@ class StationsAdapter constructor(
         fun bind(station: StationEntity) {
             itemBinding.apply {
                 tvStationName.text = station.name
+                tvCapacityValue.text = station.capacity.toString()
+                tvStockValue.text = station.stock.toString()
+                tvNeedValue.text = station.need.toString()
                 if (station.isFavourite) {
                     imgFavourite.setImageDrawable(ContextCompat.getDrawable(itemBinding.root.context, R.drawable.ic_favourite_selected))
                 } else {

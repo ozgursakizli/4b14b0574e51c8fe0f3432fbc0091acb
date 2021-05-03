@@ -15,4 +15,7 @@
     <string name="travel">Yolculuğu Başlat</string>
     <string name="search_station">İstasyon Ara</string>
     <string name="empty_favourite_list">Henüz favori istasyonunuz yok</string>
+    <string name="capacity">Kapasite</string>
+    <string name="stock">Stok</string>
+    <string name="need">İhtiyaç</string>
 </resources>

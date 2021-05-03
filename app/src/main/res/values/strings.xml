@@ -15,4 +15,7 @@
     <string name="travel">Start Travel</string>
     <string name="search_station">Search Station</string>
     <string name="empty_favourite_list">You don\'t have any stations yet</string>
+    <string name="capacity">Capacity</string>
+    <string name="stock">Stock</string>
+    <string name="need">Need</string>
 </resources>
