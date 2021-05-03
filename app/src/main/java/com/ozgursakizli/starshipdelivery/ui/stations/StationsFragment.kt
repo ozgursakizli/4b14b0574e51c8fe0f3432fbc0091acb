@@ -85,7 +85,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
 
                 if (currentStation == null) {
                     currentStation = items[0]
-                    updateSpaceshipLocation(currentStation)
+                    updateSpaceship(currentStation)
                 }
             })
             fetchSpaceship()
@@ -114,7 +114,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
     }
 
     override fun onTravelClicked(station: StationEntity) {
-        stationsViewModel.updateSpaceshipLocation(station)
+        stationsViewModel.updateSpaceship(station)
     }
 
     override fun onFavouriteClicked(station: StationEntity) {

@@ -16,9 +16,9 @@ data class StationEntity(
     @SerializedName("capacity")
     val capacity: Int,
     @SerializedName("stock")
-    val stock: Int,
+    var stock: Int,
     @SerializedName("need")
-    val need: Int,
+    var need: Int,
     var isFavourite: Boolean = false,
 ) {
     @PrimaryKey(autoGenerate = true)
