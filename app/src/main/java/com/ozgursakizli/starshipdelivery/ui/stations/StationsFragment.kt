@@ -138,6 +138,7 @@ class StationsFragment : Fragment(), StationsAdapter.ItemClickListener {
                 return
             }
 
+            // TODO missing calculations
             spaceShip!!.ugs = ugsStock - stationNeed
             station.need = 0
             station.stock = station.capacity
