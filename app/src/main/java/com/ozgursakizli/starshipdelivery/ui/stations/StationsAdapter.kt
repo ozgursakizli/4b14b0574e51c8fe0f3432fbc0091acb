@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ozgursakizli.starshipdelivery.R
 import com.ozgursakizli.starshipdelivery.database.stations.StationEntity
 import com.ozgursakizli.starshipdelivery.databinding.ItemStationBinding
+import com.ozgursakizli.starshipdelivery.utilities.DistanceCalculator
 
 class StationsAdapter constructor(
     private val onItemClickListener: ItemClickListener
@@ -57,6 +58,8 @@ class StationsAdapter constructor(
         fun bind(station: StationEntity) {
             itemBinding.apply {
                 tvStationName.text = station.name
+                val distance = DistanceCalculator.calculateDistance(currentStation.coordinateX, currentStation.coordinateY, station.coordinateX, station.coordinateY)
+                tvEus.text = String.format(itemBinding.root.context.getString(R.string.eus), distance)
                 tvCapacityValue.text = station.capacity.toString()
                 tvStockValue.text = station.stock.toString()
                 tvNeedValue.text = station.need.toString()

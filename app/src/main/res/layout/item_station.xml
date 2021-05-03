@@ -7,6 +7,13 @@
     android:layout_margin="20dp"
     android:background="@drawable/background_station_corner">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgFavourite"
         android:layout_width="36dp"
@@ -14,6 +21,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_favourite_selected" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/eus"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStationName"
@@ -27,13 +45,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgFavourite"
         tools:text="@string/app_name" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/verticalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCapacityText"
